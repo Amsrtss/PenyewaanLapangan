@@ -1,0 +1,15 @@
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\bin\Debug\net8.0\PenyewaanLapangan.exe
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\bin\Debug\net8.0\PenyewaanLapangan.deps.json
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\bin\Debug\net8.0\PenyewaanLapangan.runtimeconfig.json
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\bin\Debug\net8.0\PenyewaanLapangan.dll
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\bin\Debug\net8.0\PenyewaanLapangan.pdb
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\PenyewaanLapangan.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\PenyewaanLapangan.AssemblyInfoInputs.cache
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\PenyewaanLapangan.AssemblyInfo.cs
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\PenyewaanLapangan.csproj.CoreCompileInputs.cache
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\PenyewaanLapangan.sourcelink.json
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\PenyewaanLapangan.dll
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\refint\PenyewaanLapangan.dll
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\PenyewaanLapangan.pdb
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\PenyewaanLapangan.genruntimeconfig.cache
+C:\Users\user1\Documents\Kuliah Amira\Alpro\Tubes Alpro\PenyewaanLapangan\obj\Debug\net8.0\ref\PenyewaanLapangan.dll

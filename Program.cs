@@ -4,7 +4,6 @@
     {
         try
         {
-            Console.WriteLine("Selamat Datang di Penyewaan Lapangan Futsal");
             Console.WriteLine("SIlahkan Login!");
             Console.Write("Username: ");
             string username = Console.ReadLine();
@@ -37,5 +36,7 @@
     }
     public static void Main(string[] args)
     {
+        Console.WriteLine("Selamat Datang di Penyewaan Lapangan Futsal");
+        Login();
     }
 }
