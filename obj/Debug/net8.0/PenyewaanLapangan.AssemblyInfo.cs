@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PenyewaanLapangan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9cda915cfc8cf90bddc435bb7c9bb13c8b6932d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c42d4b3aa7d5721db7076708b5fac535cf33d6a")]
 [assembly: System.Reflection.AssemblyProductAttribute("PenyewaanLapangan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PenyewaanLapangan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
