@@ -7,20 +7,15 @@ public class Jadwal // ada kelas namanya Jadwal, kelas itu blueprint/rancangan u
 {
     // bagian dibawah ini adalah properti/atribut (detail dari sebuah blueprint) untuk kelas jadwal
     // mirip kayak variabel, tapi ini versi penyimpanan yg lebih aman
-    public string NamaPemesan { get; set; } // properti publik yang menyimpan nama pemesan | get untuk baca nilai, set untuk mengubah nilai
-    public string NomorTelepon { get; set; }
-    public string TanggalPesan { get; set; } // "dd-MM-yyyy"
-    public string Waktu { get; set; }         // "HH:mm"
-    public int NomorLapangan { get; set; }
-    public int Durasi { get; set; }
-    public double Harga { get; set; }
-
+    private string namaPemesan, nomorTelepon, tanggalPesan, waktu;
+    private int nomorLapangan, durasi;
+    private double harga;
+    
     // bagian dibawah ini adalah konstuktor (tukang yang membangun rumah) untuk inisialisasi awal objek "jadwal" nanti 
     // konstruktor punya nama sama seperti nama kelasnya
     // tujuan konstruktor adalah untuk memberikan nilai awal properti saat objek Jadwal dibuat.
-
     public Jadwal(string namaPemesan, string nomorTelepon, string tanggalPesan,
-                  string waktu, int nomorLapangan, int durasi, double harga) // Tukang (konstruktor) menerima parameter dari klien (misalnya namaPemesan, nomorTelepon, dll.).
+              string waktu, int nomorLapangan, int durasi, double harga) // Tukang (konstruktor) menerima parameter dari klien (misalnya namaPemesan, nomorTelepon, dll.).
     {
         NamaPemesan = namaPemesan; // baris ini mengisi properti NamaPemesan dengan nilai dari parameter namaPemesan yang dikirim saat pembuatan objek.
         NomorTelepon = nomorTelepon;
@@ -30,6 +25,112 @@ public class Jadwal // ada kelas namanya Jadwal, kelas itu blueprint/rancangan u
         Durasi = durasi;
         Harga = harga;
     }
+    public string NamaPemesan
+    {
+        get { return namaPemesan; }  // Mengambil nilai
+        set
+        {
+            if (!string.IsNullOrEmpty(value))  // Validasi: Tidak boleh kosong
+            {
+                namaPemesan = value;
+            }
+            else
+            {
+                throw new Exception("Nama pemesan tidak boleh kosong!");
+            }
+        }
+    }
+    public string NomorTelepon
+    {
+        get { return nomorTelepon; }
+        set
+        {
+            if (value.Length >= 10)
+            {
+                nomorTelepon = value;
+            }
+            else
+            {
+                throw new Exception("Nomor telepon minimal 10 digit!");
+            }
+        }
+    }
+    public string TanggalPesan
+    {
+        get { return tanggalPesan; }  // Mengambil nilai
+        set
+        {
+            if (!string.IsNullOrEmpty(value))  // Validasi: Tidak boleh kosong
+            {
+                tanggalPesan = value;
+            }
+            else
+            {
+                throw new Exception("Tanggal Pesan tidak boleh kosong!");
+            }
+        }
+    }
+    public string Waktu
+    {
+        get { return waktu; }
+        set
+        {
+            if (!string.IsNullOrEmpty(value) && value.Length == 5 && value.Contains(":"))
+            {
+                waktu = value;
+            }
+            else
+            {
+                throw new Exception("Format waktu harus HH:mm (Contoh: 14:00)!");
+            }
+        }
+    }
+    public int NomorLapangan
+    {
+        get { return nomorLapangan; }
+        set
+        {
+            if (value > 0)
+            {
+                nomorLapangan = value;
+            }
+            else
+            {
+                throw new Exception("Nomor lapangan harus lebih dari 0!");
+            }
+        }
+    }
+    public int Durasi
+    {
+        get { return durasi; }
+        set
+        {
+            if (value > 0)
+            {
+                durasi = value;
+            }
+            else
+            {
+                throw new Exception("Durasi tidak boleh nol atau negatif!");
+            }
+        }
+    }
+    public double Harga
+    {
+        get { return harga; }
+        set
+        {
+            if (value > 0)
+            {
+                harga = value;
+            }
+            else
+            {
+                throw new Exception("Harga tidak boleh nol atau negatif!");
+            }
+        }
+    }
+
 }
 
 class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekusi program
