@@ -28,15 +28,15 @@ public class Jadwal
 
 class Program
 {
-    
+
     private static string csvFileName = "jadwal.csv";
     private static List<Jadwal> listJadwal = new List<Jadwal>();
 
-    static void Login()
+    static void login()
     {
         try
         {
-            Console.WriteLine("SIlahkan Login!");
+            Console.WriteLine("SIlahkan login!");
             Console.Write("Username: ");
             string username = Console.ReadLine();
 
@@ -45,25 +45,25 @@ class Program
 
             if (username == "admin" && password == "admin")
             {
-                Console.WriteLine("Login Berhasil!");
+                Console.WriteLine("login Berhasil!");
                 menuAdmin();
             }
             else if (username == "" && password == "")
             {
-                Console.WriteLine("Login Berhasil!");
+                Console.WriteLine("login Berhasil!");
                 // menuPenyewa();
             }
             else
             {
                 Console.WriteLine("Username atau Password salah, silahkan coba lagi!");
-                SaveToCSV();
-                Login();
+                saveToCSV();
+                login();
             }
         }
         catch (Exception e)
         {
             Console.WriteLine($"Terjadi Kesalahan: {e.Message}");
-            Login();
+            login();
         }
 
     }
@@ -71,39 +71,44 @@ class Program
     public static void menuAdmin()
     {
         Console.WriteLine("\n========================= Tabel Penyewa =======================");
-        TampilkanJadwal(); // Menampilkan semua jadwal yang sudah di-load
+        tampilkanJadwal();
 
         Console.WriteLine("\nPilihan:");
         Console.WriteLine("1. Tambah Jadwal");
         Console.WriteLine("2. Edit Jadwal");
         Console.WriteLine("3. Hapus Jadwal");
-        Console.WriteLine("4. Logout");
+        Console.WriteLine("4. Cari Berdasarkan Nama");
+        Console.WriteLine("5. Logout");
         Console.Write("Masukkan pilihan: ");
         string pilihan = Console.ReadLine();
 
         if (pilihan == "1")
         {
-            TambahJadwal(); // Panggil method TambahJadwal
+            tambahJadwal(); // Panggil method tambahJadwal
         }
         else if (pilihan == "2")
         {
-            EditJadwal();// Panggil method EditJadwal
+            editJadwal();// Panggil method editJadwal
         }
         else if (pilihan == "3")
         {
-            HapusJadwal();// Panggil Method HapusJadwal
+            hapusJadwal();// Panggil Method hapusJadwal
         }
         else if (pilihan == "4")
         {
+            search();
+        }
+        else if (pilihan == "5")
+        {
             Console.WriteLine("Anda telah logout.");
-            Login();
+            login();
         }
         else
         {
             Console.WriteLine("Pilihan tidak valid!");
         }
     }
-    public static void TampilkanJadwal()
+    public static void tampilkanJadwal()
     {
         Console.WriteLine("No | Nama Pemesan | Nomor Telepon | Tanggal Pesan | Waktu | Lapangan | Durasi | Harga");
         if (listJadwal.Count == 0)
@@ -115,11 +120,11 @@ class Program
             for (int i = 0; i < listJadwal.Count; i++)
             {
                 Jadwal j = listJadwal[i];
-                Console.WriteLine($"{(i+1)}.  {j.NamaPemesan} | {j.NomorTelepon} | {j.TanggalPesan} | {j.Waktu} | {j.NomorLapangan} | {j.Durasi} | {j.Harga}");
+                Console.WriteLine($"{(i + 1)}.  {j.NamaPemesan} | {j.NomorTelepon} | {j.TanggalPesan} | {j.Waktu} | {j.NomorLapangan} | {j.Durasi} | {j.Harga}");
             }
         }
     }
-    public static void TambahJadwal()
+    public static void tambahJadwal()
     {
         Console.WriteLine("\n=== Tambah Jadwal ===");
 
@@ -146,18 +151,18 @@ class Program
         int durasi = int.Parse(Console.ReadLine());
 
         double harga = hitungHarga(durasi);
-        
+
         Jadwal jadwalBaru = new Jadwal(namaPemesan, nomorTelepon, tanggalPesan,
                                        waktu, nomorLapangan, durasi, harga);
         listJadwal.Add(jadwalBaru);
-    
-        SaveToCSV();
+
+        saveToCSV();
         menuAdmin();
 
     }
-    public static void EditJadwal()
+    public static void editJadwal()
     {
-        TampilkanJadwal();
+        tampilkanJadwal();
         if (listJadwal.Count == 0)
         {
             menuAdmin();
@@ -177,7 +182,7 @@ class Program
         Jadwal jadwal = listJadwal[index];
 
         Console.WriteLine($"\n=== Edit Jadwal ke-{index + 1} ===");
-        
+
         Console.Write($"Nama Pemesan (sebelumnya: {jadwal.NamaPemesan}): ");
         string namaPemesanBaru = Console.ReadLine();
         if (!string.IsNullOrEmpty(namaPemesanBaru))
@@ -227,14 +232,14 @@ class Program
         Console.WriteLine("\nJadwal berhasil di-edit!");
 
         // Simpan perubahan ke CSV
-        SaveToCSV();
+        saveToCSV();
 
         menuAdmin();
 
     }
-    public static void HapusJadwal()
+    public static void hapusJadwal()
     {
-        TampilkanJadwal();
+        tampilkanJadwal();
         if (listJadwal.Count == 0)
         {
             menuAdmin();
@@ -255,37 +260,64 @@ class Program
         Console.WriteLine("Jadwal berhasil dihapus!");
 
         // Simpan perubahan ke CSV
-        SaveToCSV();
+        saveToCSV();
 
         menuAdmin();
     }
-
-    // static void menuPenyewa()
-    // {
-
-    // }
-
-    static double hitungHarga(int durasi)
+    public static void search()
     {
-        double hargaPerJam = 10000;
+        Console.Write("Masukkan nama pemesan yang ingin dicari: ");
+        string keyword = Console.ReadLine();
 
+        // Filter jadwal berdasarkan nama (mengandung kata kunci)
+        List<Jadwal> hasilPencarian = new List<Jadwal>();
 
-        double totalHarga = durasi * hargaPerJam;
+        foreach (var jadwal in listJadwal)
+        {
+            if (jadwal.NamaPemesan.ToLower().Contains(keyword.ToLower()))
+            {
+                hasilPencarian.Add(jadwal);
+            }
+        }
 
-        return totalHarga;
-
+        // Cek apakah ada hasil
+        if (hasilPencarian.Count == 0)
+        {
+            Console.WriteLine("Tidak ada jadwal dengan nama pemesan tersebut.");
+        }
+        else
+        {
+            Console.WriteLine("No | Nama Pemesan | Nomor Telepon | Tanggal Pesan | Waktu | Lapangan | Durasi | Harga");
+            for (int i = 0; i < hasilPencarian.Count; i++)
+            {
+                Jadwal j = hasilPencarian[i];
+                Console.WriteLine($"{i + 1}.  {j.NamaPemesan} | {j.NomorTelepon} | {j.TanggalPesan} | {j.Waktu} | {j.NomorLapangan} | {j.Durasi} | {j.Harga}");
+            }
+        }
     }
 
-    static void SaveToCSV()
+        static double hitungHarga(int durasi)
+
+        {
+            double hargaPerJam = 10000;
+
+
+            double totalHarga = durasi * hargaPerJam;
+
+            return totalHarga;
+
+        }
+
+    static void saveToCSV()
     {
         try
         {
             using (StreamWriter writer = new StreamWriter(csvFileName))
             {
-                // Tulis header (bisa disesuaikan)
+
                 writer.WriteLine("NamaPemesan,NomorTelepon,TanggalPesan,Waktu,NomorLapangan,Durasi,Harga");
 
-                // Tulis setiap baris data
+
                 foreach (var j in listJadwal)
                 {
                     writer.WriteLine($"{j.NamaPemesan},{j.NomorTelepon},{j.TanggalPesan},{j.Waktu},{j.NomorLapangan},{j.Durasi},{j.Harga}");
@@ -299,7 +331,7 @@ class Program
             Console.WriteLine("Gagal menyimpan file CSV: " + ex.Message);
         }
     }
-    static void LoadFromCSV()
+    static void loadFromCSV()
     {
         if (!File.Exists(csvFileName))
         {
@@ -313,7 +345,7 @@ class Program
             using (StreamReader reader = new StreamReader(csvFileName))
             {
                 // Baca header
-                string headerLine = reader.ReadLine();  
+                string headerLine = reader.ReadLine();
                 // Pastikan header tidak kosong
                 if (string.IsNullOrEmpty(headerLine))
                 {
@@ -328,24 +360,24 @@ class Program
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
-                    if (string.IsNullOrWhiteSpace(line)) 
+                    if (string.IsNullOrWhiteSpace(line))
                         continue; // skip baris kosong
 
                     string[] values = line.Split(',');
                     if (values.Length < 7)
                     {
-                        // Format CSV tidak sesuai, skip baris ini
+
                         continue;
                     }
 
                     // Buat object Jadwal dari data CSV
-                    string namaPemesan    = values[0];
-                    string nomorTelepon   = values[1];
-                    string tanggalPesan   = values[2];
-                    string waktu          = values[3];
-                    string nomorLapangan  = values[4];
-                    int durasi            = int.Parse(values[5]);
-                    double harga          = double.Parse(values[6]);
+                    string namaPemesan = values[0];
+                    string nomorTelepon = values[1];
+                    string tanggalPesan = values[2];
+                    string waktu = values[3];
+                    string nomorLapangan = values[4];
+                    int durasi = int.Parse(values[5]);
+                    double harga = double.Parse(values[6]);
 
                     Jadwal jadwal = new Jadwal(namaPemesan, nomorTelepon, tanggalPesan,
                                                waktu, nomorLapangan, durasi, harga);
@@ -362,6 +394,10 @@ class Program
             Console.WriteLine("Gagal memuat file CSV: " + ex.Message);
         }
     }
+    // static void menuPenyewa()
+    // {
+
+    // }
 
 
 
@@ -369,7 +405,7 @@ class Program
     {
 
         Console.WriteLine("Selamat Datang di Penyewaan Lapangan Futsal");
-        LoadFromCSV();
-        Login();
+        loadFromCSV();
+        login();
     }
 }
