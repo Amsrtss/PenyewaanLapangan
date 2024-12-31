@@ -321,6 +321,14 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
 
         menuAdmin();
     }
+
+    /// <summary>
+    /// Mencari jadwal penyewaan berdasarkan nama pemesan.  
+    /// Pengguna diminta memasukkan nama (atau sebagian nama) untuk melakukan pencarian.  
+    /// Jadwal yang mengandung kata kunci tersebut akan ditampilkan dalam bentuk tabel.  
+    /// Jika tidak ada hasil, pesan pemberitahuan akan ditampilkan.  
+    /// Setelah pencarian selesai, pengguna akan diarahkan kembali ke menu admin.  
+    /// </summary>
     public static void search()
     {
         Console.Write("Masukkan nama pemesan yang ingin dicari: ");
@@ -353,6 +361,14 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
         }
         menuAdmin();
     }
+
+    /// <summary>
+    /// Menyaring jadwal penyewaan berdasarkan rentang tanggal yang dimasukkan pengguna.  
+    /// Pengguna diminta memasukkan tanggal awal dan tanggal akhir dalam format (dd-MM-yyyy).  
+    /// Jadwal yang berada dalam rentang tanggal tersebut akan ditampilkan dalam bentuk tabel.  
+    /// Jika tidak ada jadwal yang sesuai, pesan pemberitahuan akan muncul.  
+    /// Program akan kembali ke menu admin jika terjadi kesalahan format atau input tanggal tidak valid.  
+    /// </summary>
     public static void filter()
     {
         Console.Write("Masukkan tanggal awal (dd-MM-yyyy): ");
@@ -411,6 +427,11 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
 
     }
 
+    /// <summary>
+    /// Menghitung total harga penyewaan lapangan berdasarkan durasi (dalam jam).  
+    /// Harga per jam adalah 10.000.  
+    /// Method ini mengembalikan total harga sebagai nilai double.  
+    /// </summary>
     static double hitungHarga(int durasi)
 
     {
@@ -423,6 +444,12 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
 
     }
 
+    /// <summary>
+    /// Menyimpan seluruh data jadwal ke dalam file CSV.  
+    /// Data diambil dari listJadwal dan ditulis ke file dengan format CSV.  
+    /// Jika proses penyimpanan berhasil, pesan konfirmasi akan ditampilkan.  
+    /// Jika terjadi kesalahan, pesan error akan ditampilkan dengan informasi detail.  
+    /// </summary>
     static void saveToCSV()
     {
         try
@@ -435,17 +462,25 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
 
                 foreach (var j in listJadwal)
                 {
-                    writer.WriteLine($"{j.NamaPemesan},{j.NomorTelepon},{j.TanggalPesan},{j.Waktu},{j.NomorLapangan},{j.Durasi},{j.Harga}");
+                    writer.WriteLine($"{j.NamaPemesan},{j.NomorTelepon},{j.TanggalPesan},{j.Waktu},{j.NomorLapangan},{j.Durasi},{j.Harga}"); // loop ini mengakses setiap item Jadwal yang tersimpan dalam list listJadwal satu per satu.
                 }
             }
 
-            Console.WriteLine("\n[INFO] Data jadwal berhasil disimpan ke CSV!");
+            Console.WriteLine("\n[INFO] Data jadwal berhasil disimpan ke CSV!"); // tanda . untuk memanggil method
         }
         catch (Exception e)
         {
             Console.WriteLine("Gagal menyimpan file CSV: " + e.Message);
         }
     }
+
+    /// <summary>
+    /// Membaca dan memuat data jadwal dari file CSV ke dalam listJadwal.  
+    /// Jika file CSV tidak ditemukan atau kosong, proses loading akan dilewati.  
+    /// Data yang berhasil dibaca akan diubah menjadi objek Jadwal dan ditambahkan ke list.  
+    /// Setiap baris dalam file CSV dikonversi menjadi objek Jadwal dan ditambahkan ke dalam listJadwal
+    /// Jika terjadi error saat proses pembacaan, pesan error akan ditampilkan.  
+    /// </summary>
     static void loadFromCSV()
     {
         if (!File.Exists(csvFileName))
@@ -459,19 +494,19 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
         {
             using (StreamReader reader = new StreamReader(csvFileName))
             {
-                // Baca header
+                // read header
                 string headerLine = reader.ReadLine();
-                // Pastikan header tidak kosong
+                // memastikan header tidak kosong
                 if (string.IsNullOrEmpty(headerLine))
                 {
                     Console.WriteLine("[INFO] File CSV kosong, tidak ada data untuk di-load.");
                     return;
                 }
 
-                // Bersihkan isi listJadwal agar data tidak menumpuk
+                // membersihkan isi listJadwal agar data tidak menumpuk
                 listJadwal.Clear();
 
-                // Baca baris-baris berikutnya (data)
+                // membaca baris-baris berikutnya (data)
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
@@ -485,7 +520,7 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
                         continue;
                     }
 
-                    // Buat object Jadwal dari data CSV
+                    // membuat object Jadwal dari data CSV
                     string namaPemesan = values[0];
                     string nomorTelepon = values[1];
                     string tanggalPesan = values[2];
@@ -498,7 +533,7 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
                                                waktu, nomorLapangan, durasi, harga);
 
                     // Masukkan ke list
-                    listJadwal.Add(jadwal);
+                    listJadwal.Add(jadwal); //menyimpan objek jadwal ke dalam list listJadwal
                 }
             }
 
