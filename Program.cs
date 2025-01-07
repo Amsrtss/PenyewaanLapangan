@@ -2,6 +2,7 @@
 using System.IO;
 using System.Globalization;
 using System.Collections.Generic;
+using System.Reflection;
 
 public class Jadwal // ada kelas namanya Jadwal, kelas itu blueprint/rancangan untuk membangun sebuah objek (rumah) "Jadwal" nanti
 {
@@ -178,7 +179,7 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
             else if (username == "" && password == "") // jika inputannya ini
             {
                 Console.WriteLine("login Berhasil!");
-                // menuPenyewa(); 
+                menuPenyewa(); 
             }
             else // jika inputan tidak sesuai yang didefinisikan diatas maka ekseskusi kode didalam kurung ini
             {
@@ -297,7 +298,8 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
         listJadwal.Add(jadwalBaru);
 
         saveToCSV();
-        menuAdmin();
+        return;
+
 
     }
 
@@ -567,11 +569,11 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
                 }
             }
 
-            Console.WriteLine("\n[INFO] Data jadwal berhasil disimpan ke CSV!"); // tanda . untuk memanggil method
+            Console.WriteLine("\n[INFO] Data jadwal berhasil disimpan!"); // tanda . untuk memanggil method
         }
         catch (Exception e)
         {
-            Console.WriteLine("Gagal menyimpan file CSV: " + e.Message);
+            Console.WriteLine("Gagal menyimpan file: " + e.Message);
         }
     }
 
@@ -646,9 +648,35 @@ class Program // ada kelas namanya Program, berfungsi sebagai titik awal eksekus
         }
     }
 
-    // static void menuPenyewa()
-    // {
+// user gak bisa edit dan hapus
+    static void menuPenyewa()
+    {
+        Console.WriteLine("\n========================= Tabel Penyewa =======================");
+        tampilkanJadwal(); // panggil method ini untuk menampilkan jadwal
 
+        Console.WriteLine("\nPilihan:");
+        Console.WriteLine("1. Daftar");
+        Console.WriteLine("2. Logout");
+        Console.Write("Masukkan pilihan: ");
+        int pilihan = int.Parse(Console.ReadLine());
+
+        // cek kondisi inputan
+        switch (pilihan)
+        {
+            case 1:
+            tambahJadwal();
+            break;
+            
+            case 2:
+            login();
+            break;
+
+        }
+
+    }
+    // static void daftar()
+    // {
+        
     // }
 
 
